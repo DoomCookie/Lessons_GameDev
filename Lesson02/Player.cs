@@ -10,67 +10,53 @@ namespace Lesson02
 {
     internal class Player
     {
-        float m_x;
-        float m_y;
-        float m_width;
-        float m_height;
+        PointF m_position;
+        SizeF m_size;
+        public PointF Position { get { return m_position; } }
+        public SizeF Size { get { return m_size; } }
+
         float m_speed;
 
         SolidBrush m_brush;
 
-        public float X
+        public Player(PointF position, SizeF size, float speed, Color color)
         {
-            get { return m_x; }
-        }
-
-        public float Y
-        {
-            get { return m_y; }
-        }
-
-        public float Width { get { return m_width; } }
-        public float Height { get { return m_height; } }
-
-        public Player(float x, float y, float width, float height, float speed, Color color)
-        {
-            m_x = x;
-            m_y = y;
-            m_width = width;
-            m_height = height;
-            m_speed = speed;
+            m_position = position;
+            m_size = size;
+            m_speed = speed * Settings.Interval;
             m_brush = new SolidBrush(color);
         }
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(m_brush, m_x, m_y, m_width, m_height);
+            g.FillRectangle(m_brush, m_position.X,
+                            m_position.Y, m_size.Width, m_size.Height);
         }
 
-        public bool Collide(Enemy enemy, KeyEventArgs e)
+        public bool Collide(Enemy enemy)
         {
-            float tmp_x = m_x;
-            float tmp_y = m_y;
-            if (e.KeyCode == Keys.Right)
+            PointF tmpPoint = m_position;
+            if (Utils.KeysState["Right"])
             {
-                tmp_x += m_speed;
+                tmpPoint.X += m_speed;
             }
-            if (e.KeyCode == Keys.Down)
+            if (Utils.KeysState["Down"])
             {
-                tmp_y += m_speed;
+                tmpPoint.Y += m_speed;
             }
-            if (e.KeyCode == Keys.Left)
+            if (Utils.KeysState["Left"])
             {
-                tmp_x -= m_speed;
+                tmpPoint.X -= m_speed;
             }
-            if (e.KeyCode == Keys.Up)
+            if (Utils.KeysState["Up"])
             {
-                tmp_y -= m_speed;
+                tmpPoint.Y -= m_speed;
             }
 
-            if(enemy.X <= tmp_x + m_width && 
-               enemy.Y <= tmp_y + m_height &&
-               tmp_y <= enemy.Y + enemy.Height && 
-               tmp_x <= enemy.X + enemy.Width)
+            if(enemy.Position.X <= tmpPoint.X + m_size.Width && 
+               enemy.Position.Y <= tmpPoint.Y + m_size.Height &&
+               tmpPoint.Y <= enemy.Position.Y + enemy.Size.Height && 
+               tmpPoint.X <= enemy.Position.X + enemy.Size.Width)
             {
                 return true;
             }
@@ -78,24 +64,24 @@ namespace Lesson02
             return false;
         }
 
-        public void Move(KeyEventArgs e, int width, int height)
+        public void Move()
         {
             
-            if (e.KeyCode == Keys.Right && m_x + m_width + m_speed <= width)
+            if (Utils.KeysState["Right"] && m_position.X + m_size.Width + m_speed <= Settings.WindowSize.Width)
             {
-                m_x += m_speed;
+                m_position.X += m_speed;
             }
-            if (e.KeyCode == Keys.Down && m_y + m_height + m_speed <= height)
+            if (Utils.KeysState["Down"] && m_position.Y + m_size.Height + m_speed <= Settings.WindowSize.Height)
             {
-                m_y += m_speed;
+                m_position.Y += m_speed;
             }
-            if (e.KeyCode == Keys.Left && m_x - m_speed > 0)
+            if (Utils.KeysState["Left"] && m_position.X - m_speed > 0)
             {
-                m_x -= m_speed;
+                m_position.X -= m_speed;
             }
-            if (e.KeyCode == Keys.Up && m_y - m_speed > 0)
+            if (Utils.KeysState["Up"] && m_position.Y - m_speed > 0)
             {
-                m_y -= m_speed;
+                m_position.Y -= m_speed;
             }
         }
     }
