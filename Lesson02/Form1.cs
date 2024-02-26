@@ -53,10 +53,24 @@ namespace Lesson02
         private void m_timer_Tick(object sender, EventArgs e)
         {
             Refresh();
+            PointF lastPosition = m_player.Position;
             m_player.Move();
             for (int i = 0; i < m_enemys.Length; ++i)
             {
+                if(Utils.IsCollide(m_player, m_enemys[i]))
+                {
+                    m_player.Position = lastPosition;
+                    break;
+                }
+            }
+            for (int i = 0; i < m_enemys.Length; ++i)
+            {
+                PointF lastPostion = m_enemys[i].Position;
                 m_enemys[i].Move();
+                if (Utils.IsCollide(m_enemys[i], m_player))
+                {
+                    m_enemys[i].Position = lastPostion;
+                }
             }
         }
 

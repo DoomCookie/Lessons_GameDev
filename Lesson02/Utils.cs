@@ -65,6 +65,18 @@ namespace Lesson02
                 KeysState["Right"] = false;
             }
         }
+
+        public static bool IsCollide(Character first, Character second)
+        {
+            if (first.Position.X <= second.Position.X + second.Size.Width &&
+                first.Position.Y <= second.Position.Y + second.Size.Height &&
+                second.Position.Y <= first.Position.Y + first.Size.Height &&
+                second.Position.X <= first.Position.X + first.Size.Width)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
 
