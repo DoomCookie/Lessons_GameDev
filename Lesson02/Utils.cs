@@ -18,12 +18,21 @@ namespace Lesson02
 
     class Utils
     {
+        public enum GameState
+        {
+            IsGame,
+            Win,
+            Lose,
+            EndGame
+        }
+
         public static Dictionary<string, bool> KeysState { set; get; } = new Dictionary<string, bool>()
         {
             {"Up", false },
             {"Down", false },
             {"Left", false },
-            {"Right", false }
+            {"Right", false },
+            {"Space", false }
         };
 
         public static void SetKeyDown(KeyEventArgs e)
@@ -44,6 +53,10 @@ namespace Lesson02
             {
                 KeysState["Right"] = true;
             }
+            if (e.KeyCode == Keys.Space)
+            {
+                KeysState["Space"] = true;
+            }
         }
 
         public static void SetKeyUp(KeyEventArgs e)
@@ -63,6 +76,10 @@ namespace Lesson02
             if (e.KeyCode == Keys.Right)
             {
                 KeysState["Right"] = false;
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                KeysState["Space"] = false;
             }
         }
 

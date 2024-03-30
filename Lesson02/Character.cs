@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Lesson02
 {
     internal class Character
     {
-        SolidBrush m_brush;
+        protected Brush m_brush;
 
         protected PointF m_position;
         protected SizeF m_size;
@@ -29,7 +30,7 @@ namespace Lesson02
             m_brush = new SolidBrush(color);
         }
 
-        public void Draw(Graphics g)
+        public virtual void Draw(Graphics g)
         {
             g.FillRectangle(m_brush, m_position.X, m_position.Y,
                             m_size.Width, m_size.Height);
