@@ -21,10 +21,10 @@ namespace Lesson02
         public enum GameState
         {
             IsGame,
-            Win,
             Lose,
             EndGame
         }
+
 
         public static Dictionary<string, bool> KeysState { set; get; } = new Dictionary<string, bool>()
         {
