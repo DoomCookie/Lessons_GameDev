@@ -19,16 +19,18 @@ namespace Lesson02
         Enemy[] m_enemys;
         List<Bullet> m_bullets;
 
-        FPSCounter m_fpsCounter;
-
-
+        PointF m_titlePos;
+        Brush m_brush;
+        Font m_font;
         public Form1()
         {
             InitializeComponent();
-            title_lbl.Visible = false;
             Settings.InitSettings(new SizeF(Width - 17, Height - 34), m_timer.Interval);
-            m_fpsCounter = new FPSCounter();
-            m_player = new Player(new PointF(50, Height - 150), new SizeF(50, 50), 100, Color.Blue);
+
+            m_titlePos = new PointF((Width / 2) - 80, (Height / 4) - 0);
+            m_brush = new SolidBrush(Color.Red);
+            m_font = new Font(FontFamily.GenericSerif, 28);
+            m_player = new Player(new PointF(50, Height - 150), new SizeF(50, 50), 250, Color.Blue);
 
             m_bullets = new List<Bullet>();
             m_enemys = new Enemy[10];
@@ -38,23 +40,20 @@ namespace Lesson02
                 PointF spawnPoint = new PointF(rnd.Next(0, Width - 17 - 40),
                     rnd.Next(-1000, -50));
                 SizeF spawnSize = new SizeF(40, 40);
-                m_enemys[i] = new Enemy(spawnPoint, spawnSize, 100, Color.Brown);
+                m_enemys[i] = new Enemy(spawnPoint, spawnSize, 100, Color.Green);
             }
             m_timer.Start();
         }
 
-        
-
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            
             m_player.Draw(e.Graphics);
             for (int i = 0; i < m_enemys.Length; ++i)
             {
                 m_enemys[i].Draw(e.Graphics);
             }
             List<Bullet> delete = new List<Bullet>();
-            foreach(Bullet bullet in m_bullets)
+            foreach (Bullet bullet in m_bullets)
             {
                 bullet.Draw(e.Graphics);
                 if (bullet.Position.Y < -15)
@@ -62,13 +61,17 @@ namespace Lesson02
                     delete.Add(bullet);
                 }
             }
-            foreach(Bullet bullet in delete)
+            foreach (Bullet bullet in delete)
             {
                 m_bullets.Remove(bullet);
             }
-            m_fpsCounter.Draw(e.Graphics);
+            FPSCounter.Draw(e.Graphics);
             ScoreCounter.Draw(e.Graphics);
             LifeCounter.Draw(e.Graphics);
+            if (m_gameState != Utils.GameState.IsGame)
+            {
+                e.Graphics.DrawString("You Lose!", m_font, m_brush, m_titlePos);
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -96,10 +99,6 @@ namespace Lesson02
                             break;
                         }
                     }
-                    if(!LifeCounter.IsAlive())
-                    {
-                        m_gameState = Utils.GameState.Lose;
-                    }
                     if (Utils.KeysState["Space"])
                     {
                         Bullet bullet = m_player.Shoot();
@@ -109,46 +108,38 @@ namespace Lesson02
                         }
                     }
                     List<Bullet> delete = new List<Bullet>();
-                    for(int i = 0; i < m_bullets.Count; i++)
+                    
+                    for (int i = 0; i < m_bullets.Count; i++)
                     {
                         m_bullets[i].Move();
-                        bool flag = false;
                         for(int j = 0; j < m_enemys.Length; j++)
                         {
                             if (Utils.IsCollide(m_bullets[i], m_enemys[j]))
                             {
-                                flag = true;
+                                ScoreCounter.Hit(m_enemys[j].Bounty); 
+                                delete.Add(m_bullets[i]);
                                 Random rnd = new Random();
-                                PointF spawnPoint = new PointF(rnd.Next(0, Width - 17 - 40),
-                    rnd.Next(-1000, -50));
+                                PointF spawnPoint = new PointF(rnd.Next(0, Width - 17 - 40), rnd.Next(-1000, -50));
                                 m_enemys[j].Position = spawnPoint;
-                                ScoreCounter.AddScore(m_enemys[j].Bounty);
-
                             }
                         }
-                        if (flag)
-                        {
-                            delete.Add(m_bullets[i]);
-                        }
                     }
-                    foreach(Bullet bullet in delete)
+                    foreach (Bullet bullet in delete)
                     {
                         m_bullets.Remove(bullet);
                     }
+                    if(!LifeCounter.IsAlive())
+                    {
+                        m_gameState = Utils.GameState.Lose;
+                    }
                     break;
                 case Utils.GameState.Lose:
-                    title_lbl.Text = "You Lose!";
-                    Point newLocation = new Point((Width / 2) - title_lbl.Size.Width / 2, (Height / 4) - title_lbl.Size.Height / 2);
-                    title_lbl.Location = newLocation;
-                    title_lbl.ForeColor = Color.Red;
-                    title_lbl.Visible = true;
                     m_gameState = Utils.GameState.EndGame;
                     break;
                 case Utils.GameState.EndGame:
                     if (Utils.KeysState["Space"])
                     {
                         Restart();
-                        ScoreCounter.Reset();
                     }
                     break;
             }
@@ -161,6 +152,9 @@ namespace Lesson02
 
         void Restart()
         {
+            LifeCounter.Reset();
+            m_bullets.Clear();
+            ScoreCounter.Reset();
             m_player.Position = new PointF((Width / 2) - m_player.Size.Width / 2, Height - 150);
             Random rnd = new Random();
             for (int i = 0; i < m_enemys.Length; ++i)
@@ -170,7 +164,6 @@ namespace Lesson02
                 m_enemys[i].Position = spawnPoint;
             }
             m_gameState = Utils.GameState.IsGame;
-            title_lbl.Visible = false;
         }
     }
 }

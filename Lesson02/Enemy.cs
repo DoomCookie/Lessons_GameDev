@@ -9,10 +9,10 @@ namespace Lesson02
 {
     internal class Enemy : Character
     {
-        public int Bounty { get; }
+        public int Bounty { get; } = 100;
+
         public Enemy(PointF position, SizeF size, float speed, Color color) : base(position, size, speed, color)
         {
-            Bounty = 100;
         }
 
         override public void Move()
@@ -20,11 +20,10 @@ namespace Lesson02
             m_position.Y += m_speed;
             if(m_position.Y > Settings.WindowSize.Height + 10)
             {
+                LifeCounter.Hit();
                 Random rnd = new Random();
                 m_position.Y = rnd.Next(-1000, -50);
                 m_position.X = rnd.Next(0, (int)(Settings.WindowSize.Width - m_size.Width));
-                ScoreCounter.AddScore(-Bounty);
-                LifeCounter.Hit();
             }
         }
     }
