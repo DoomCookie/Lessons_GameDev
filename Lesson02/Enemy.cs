@@ -20,7 +20,10 @@ namespace Lesson02
             m_position.Y += m_speed;
             if(m_position.Y > Settings.WindowSize.Height + 10)
             {
-                //LifeCounter.Hit();
+                LifeCounter.Hit();
+                Random rnd = new Random();
+                m_position.Y = rnd.Next(-1000, -50);
+                m_position.X = rnd.Next(0, (int)(Settings.WindowSize.Width - m_size.Width));
             }
         }
     }

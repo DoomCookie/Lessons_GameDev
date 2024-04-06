@@ -51,6 +51,7 @@ namespace Lesson02
                 return new Bullet(new PointF(Position.X + Size.Width / 2, Position.Y - 15), new SizeF(5, 10), 500, Color.Orange);
             }
             return null;
+
         }
     }
 }
