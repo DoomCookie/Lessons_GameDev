@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System;
 
 namespace Lesson02
 {
@@ -25,6 +26,8 @@ namespace Lesson02
             Lose,
             EndGame
         }
+
+        public static Random rnd = new Random();
 
         public static Dictionary<string, bool> KeysState { set; get; } = new Dictionary<string, bool>()
         {
@@ -81,6 +84,35 @@ namespace Lesson02
             {
                 KeysState["Space"] = false;
             }
+        }
+
+        public static void SpawnEnemy(Enemy[] enemys, int i)
+        {
+            bool isValidSpawn = false;
+            PointF spawnPoint = new PointF(0, 0);
+            while(!isValidSpawn)
+            {
+                spawnPoint = new PointF(rnd.Next(20, Convert.ToInt32(Settings.WindowSize.Width - enemys[i].Size.Width - 20)), rnd.Next(-1000, -50));
+                PointF centerEnemy = new PointF(spawnPoint.X + enemys[i].Size.Width / 2, spawnPoint.Y + enemys[i].Size.Height / 2);
+                isValidSpawn = true;
+                for(int j = 0; j < enemys.Length; j++)
+                {
+                    if (enemys[j] == null || i == j)
+                    {
+                        continue;
+                    }
+                    PointF centerOther = new PointF(enemys[j].Position.X + enemys[j].Size.Width / 2, enemys[j].Position.Y + enemys[j].Size.Height / 2);
+                    PointF distVec = new PointF(centerEnemy.X - centerOther.X, centerEnemy.Y - centerOther.Y);
+                    double dist = Math.Sqrt(distVec.X * distVec.X + distVec.Y * distVec.Y);
+                    if(dist < enemys[i].Size.Width + enemys[j].Size.Width)
+                    {
+                        isValidSpawn = false;
+                        break;
+                    }
+                }
+
+            }
+            enemys[i].Position = spawnPoint;
         }
 
         public static bool IsCollide(Character first, Character second)
