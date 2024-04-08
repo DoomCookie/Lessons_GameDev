@@ -11,6 +11,8 @@ namespace Lesson02
         public static SizeF WindowSize { set; get; }
         public static float Interval { get; set; }
 
+        Settings(){}
+
         public static void InitSettings(SizeF size, float interval)
         {
             WindowSize = size;
@@ -26,6 +28,11 @@ namespace Lesson02
             Win,
             Lose,
             EndGame
+        }
+        public enum Characters
+        {
+            Enemy,
+            Player
         }
         public static Random rnd = new Random();
         public static Dictionary<string, bool> KeysState { set; get; } = new Dictionary<string, bool>()

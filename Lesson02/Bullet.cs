@@ -9,8 +9,10 @@ namespace Lesson02
 {
     internal class Bullet : Character
     {
-        public Bullet(PointF position, SizeF size, float speed, Color color) : base(position, size, speed, color)
+        public Utils.Characters Owner { get; }
+        public Bullet(PointF position, SizeF size, float speed, Color color, Utils.Characters owner) : base(position, size, speed, color)
         {
+            Owner = owner;
         }
 
         public override void Move()
