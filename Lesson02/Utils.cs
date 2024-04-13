@@ -27,6 +27,14 @@ namespace Lesson02
             EndGame
         }
 
+        public enum Characters
+        {
+            Player,
+            Neutral,
+            Enemy
+        }
+
+
         public static Random rnd = new Random();
 
         public static Dictionary<string, bool> KeysState { set; get; } = new Dictionary<string, bool>()

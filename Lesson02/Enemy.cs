@@ -9,7 +9,7 @@ namespace Lesson02
 {
     internal class Enemy : Character
     {
-        public int Bounty { get; } = 100;
+        public virtual int Bounty { get; } = 100;
 
         public Enemy(PointF position, SizeF size, float speed, Color color) : base(position, size, speed, color)
         {
