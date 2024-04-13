@@ -18,6 +18,8 @@ namespace Lesson02
         static Brush m_brush;
         static Font m_font;
 
+        static Image m_background = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/River/PNG/background.png");
+
         Game()
         {
             
@@ -30,20 +32,19 @@ namespace Lesson02
             m_titlePos = new PointF((Settings.WindowSize.Width / 2) - 80, (Settings.WindowSize.Height / 4) - 0);
             m_brush = new SolidBrush(Color.Red);
             m_font = new Font(FontFamily.GenericSerif, 28);
-            m_player = new Player(new PointF(50, Settings.WindowSize.Height - 150), new SizeF(50, 50), 250, Color.Blue);
+            m_player = new Player(new PointF(50, Settings.WindowSize.Height - 150), new SizeF(50, 75), 250, Color.Blue);
 
             m_bullets = new List<Bullet>();
             m_enemys = new Enemy[10];
             for (int i = 0; i < m_enemys.Length; ++i)
             {
-                SizeF spawnSize = new SizeF(40, 40);
                 if (Utils.rnd.NextDouble() <= 0.3)
                 {
-                    m_enemys[i] = new ShootEnemy(new PointF(0, 0), spawnSize, 100, Color.Brown);
+                    m_enemys[i] = new ShootEnemy(new PointF(0, 0), new SizeF(60, 40), 100, Color.Brown);
                 }
                 else
                 {
-                    m_enemys[i] = new Enemy(new PointF(0, 0), spawnSize, 100, Color.Green);
+                    m_enemys[i] = new Enemy(new PointF(0, 0), new SizeF(40, 80), 100, Color.Green);
                 }
                 Utils.SpawnEnemy(m_enemys, i);
             }
@@ -51,6 +52,7 @@ namespace Lesson02
 
         public static void Draw(Graphics g)
         {
+            g.DrawImage(m_background, 0, 0, Settings.WindowSize.Width, Settings.WindowSize.Height);
             m_player.Draw(g);
             for (int i = 0; i < m_enemys.Length; ++i)
             {

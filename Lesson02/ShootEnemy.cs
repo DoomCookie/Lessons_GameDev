@@ -15,6 +15,16 @@ namespace Lesson02
         {
             m_coolDown = Utils.rnd.Next(2000, 3000);
             Bounty = 200;
+            m_sprite = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/spritesheets/enemy-medium.png");
+            m_frameRect = new RectangleF(0, 0, 32, 16);
+            m_frameSize = new SizeF(32, 16);
+            m_frameCount = 0;
+            m_frames = new Bitmap[2];
+            for (int i = 0; i < m_frames.Length; i++)
+            {
+                RectangleF rect = new RectangleF(i * m_frameSize.Width, 0, m_frameSize.Width, m_frameSize.Height);
+                m_frames[i] = m_sprite.Clone(rect, m_sprite.PixelFormat);
+            }
         }
 
         public Bullet Shoot()
@@ -24,7 +34,7 @@ namespace Lesson02
             if (now - m_timerShot >= m_coolDown)
             {
                 m_timerShot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                return new Bullet(new PointF(Position.X + Size.Width / 2, Position.Y + m_size.Height + 15), new SizeF(5, 10), -200, Color.Red, Utils.Characters.Enemy);
+                return new Bullet(new PointF(Position.X + Size.Width / 2 -12, Position.Y + m_size.Height + 15), new SizeF(24, 24), -200, Color.Red, Utils.Characters.Enemy);
             }
             return null;
 

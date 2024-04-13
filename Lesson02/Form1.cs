@@ -15,7 +15,7 @@ namespace Lesson02
         public Form1()
         {
             InitializeComponent();
-            Settings.InitSettings(new SizeF(Width - 17, Height - 34), m_timer.Interval);
+            Settings.InitSettings(new SizeF(Width - 16, Height - 34), m_timer.Interval);
 
             Game.Init();
             m_timer.Start();
