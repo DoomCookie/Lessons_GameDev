@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="FPSCounter.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="LeaderBoard.cs" />
     <Compile Include="LifeCounter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

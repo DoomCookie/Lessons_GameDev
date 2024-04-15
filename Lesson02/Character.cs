@@ -39,7 +39,7 @@ namespace Lesson02
 
         public virtual void Draw(Graphics g)
         {
-            //g.FillRectangle(m_brush, destRect);
+            //g.FillRectangle(m_brush, m_position.X, m_position.Y, m_size.Width, m_size.Height);
             g.DrawImage(m_frames[m_frameCount % m_frames.Length], m_position.X, m_position.Y, m_size.Width, m_size.Height );
         }
 

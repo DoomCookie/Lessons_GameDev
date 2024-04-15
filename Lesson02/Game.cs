@@ -8,6 +8,14 @@ namespace Lesson02
 {
     internal class Game
     {
+        /*TODO:
+          Таблица лидеров по очкам
+          Восстановление жизней за очки
+          Перезарядка
+          Бонусы
+          звуки(фоновая музыка)
+        
+        */
         static Player m_player;
         static Enemy[] m_enemys;
         static List<Bullet> m_bullets;
@@ -28,6 +36,8 @@ namespace Lesson02
         public static void Init()
         {
             m_gameState = Utils.GameState.IsGame;
+
+            LeaderBoard.Start();
 
             m_titlePos = new PointF((Settings.WindowSize.Width / 2) - 80, (Settings.WindowSize.Height / 4) - 0);
             m_brush = new SolidBrush(Color.Red);
@@ -65,9 +75,13 @@ namespace Lesson02
             FPSCounter.Draw(g);
             ScoreCounter.Draw(g);
             LifeCounter.Draw(g);
-            if (m_gameState != Utils.GameState.IsGame)
+            //if (m_gameState != Utils.GameState.IsGame)
+            //{
+            //    g.DrawString("You Lose!", m_font, m_brush, m_titlePos);
+            //}
+            if(m_gameState != Utils.GameState.IsGame)
             {
-                g.DrawString("You Lose!", m_font, m_brush, m_titlePos);
+                LeaderBoard.Draw(g);
             }
         }
 

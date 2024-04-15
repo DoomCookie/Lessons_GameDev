@@ -34,7 +34,7 @@ namespace Lesson02
             if (now - m_timerShot >= m_coolDown)
             {
                 m_timerShot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                return new Bullet(new PointF(Position.X + Size.Width / 2 -12, Position.Y + m_size.Height + 15), new SizeF(24, 24), -200, Color.Red, Utils.Characters.Enemy);
+                return new Bullet(new PointF(Position.X + Size.Width / 2 -5, Position.Y + m_size.Height + 15), new SizeF(10, 10), -200, Color.Red, Utils.Characters.Enemy);
             }
             return null;
 

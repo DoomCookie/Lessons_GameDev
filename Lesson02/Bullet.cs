@@ -14,14 +14,14 @@ namespace Lesson02
         {
             Owner = owner;
             m_sprite = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/spritesheets/laser-bolts.png");
-            m_frameRect = new RectangleF(0, 0, 16, 16);
-            m_frameSize = new SizeF(16, 16);
+            m_frameSize = new SizeF(5, 5);
             m_frames = new Bitmap[2];
-            for (int i = 0; i < m_frames.Length; i++)
-            {
-                RectangleF rect = new RectangleF(i * m_frameSize.Width, 0, m_frameSize.Width, m_frameSize.Height);
-                m_frames[i] = m_sprite.Clone(rect, m_sprite.PixelFormat);
-            }
+            m_frames[0] = m_sprite.Clone(
+                new RectangleF(6, 7, 5, 5),
+                m_sprite.PixelFormat);
+            m_frames[1] = m_sprite.Clone(
+                new RectangleF(20, 7, 5, 5),
+                m_sprite.PixelFormat);
         }
 
         public override void Move()
