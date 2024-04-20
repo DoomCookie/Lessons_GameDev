@@ -26,8 +26,6 @@ namespace Lesson02
         static Brush m_brush;
         static Font m_font;
 
-        static Image m_background = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/River/PNG/background.png");
-
         Game()
         {
             
@@ -62,7 +60,7 @@ namespace Lesson02
 
         public static void Draw(Graphics g)
         {
-            g.DrawImage(m_background, 0, 0, Settings.WindowSize.Width, Settings.WindowSize.Height);
+            Background.Draw(g);
             m_player.Draw(g);
             for (int i = 0; i < m_enemys.Length; ++i)
             {

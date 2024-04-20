@@ -17,7 +17,7 @@ namespace Lesson02
         {
             m_coolDown = 1000 / 5f;
             m_timerShot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            m_sprite = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/spritesheets/ship.png");
+            m_sprite = new Bitmap("media/spritesheets/ship.png");
             m_frameRect = new RectangleF(31, 0, 17, 23);
             m_frameSize = new SizeF(16, 24);
             m_frames = new Bitmap[2];

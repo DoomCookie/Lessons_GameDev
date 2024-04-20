@@ -15,7 +15,7 @@ namespace Lesson02
         {
             m_coolDown = Utils.rnd.Next(2000, 3000);
             Bounty = 200;
-            m_sprite = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/spritesheets/enemy-medium.png");
+            m_sprite = new Bitmap("media/spritesheets/enemy-medium.png");
             m_frameRect = new RectangleF(0, 0, 32, 16);
             m_frameSize = new SizeF(32, 16);
             m_frameCount = 0;

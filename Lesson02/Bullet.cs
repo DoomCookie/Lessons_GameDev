@@ -13,7 +13,7 @@ namespace Lesson02
         public Bullet(PointF position, SizeF size, float speed, Color color, Utils.Characters owner) : base(position, size, speed, color)
         {
             Owner = owner;
-            m_sprite = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/spritesheets/laser-bolts.png");
+            m_sprite = new Bitmap("media/spritesheets/laser-bolts.png");
             m_frameSize = new SizeF(5, 5);
             m_frames = new Bitmap[2];
             m_frames[0] = m_sprite.Clone(

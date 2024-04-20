@@ -14,7 +14,7 @@ namespace Lesson02
 
         public Enemy(PointF position, SizeF size, float speed, Color color) : base(position, size, speed, color)
         {
-            m_sprite = new Bitmap("D:/C#/Кириченко Артем/Lesson02/Lesson02/media/spritesheets/enemy-big.png");
+            m_sprite = new Bitmap("media/spritesheets/enemy-big.png");
             m_frameSize = new SizeF(32, 32);
             m_frameRect = new RectangleF(0, 0, 32, 32);
             m_frameCount = 0;

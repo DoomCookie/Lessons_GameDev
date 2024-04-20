@@ -86,9 +86,9 @@ namespace Lesson02
             g.FillRectangle(m_brush, Settings.WindowSize.Width * 0.2f, Settings.WindowSize.Height * 0.1f, m_size.Width, m_size.Height);
             g.DrawString("Leader Board", new Font(FontFamily.GenericSerif, 20), m_redBrush, new PointF(Settings.WindowSize.Width * 0.22f, Settings.WindowSize.Height * 0.15f));
             PointF curPoint = new PointF(Settings.WindowSize.Width * 0.25f, Settings.WindowSize.Height * 0.25f);
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 10 && i < m_data.Count; i++)
             {
-                if(i == 8 && m_current > 10)
+                if(i == 8 && m_current > 9)
                 {
                     g.DrawString("...", m_font, m_brushText, curPoint);
                     curPoint.Y += 30;
