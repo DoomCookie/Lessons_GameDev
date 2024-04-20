@@ -12,6 +12,8 @@ namespace Lesson02
         static Font m_font = new Font(FontFamily.GenericSerif, 15);
         static PointF m_point = new PointF(Settings.WindowSize.Width - 50, 10);
         static int m_score = 0;
+        
+        public static int Score { get { return m_score; } }
 
         public static void Hit(int score)
         {

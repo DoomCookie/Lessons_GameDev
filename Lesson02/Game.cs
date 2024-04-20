@@ -20,7 +20,7 @@ namespace Lesson02
         static Enemy[] m_enemys;
         static List<Bullet> m_bullets;
 
-        static Utils.GameState m_gameState;
+        static Utils.GameState m_gameState = Utils.GameState.Prepare;
 
         static PointF m_titlePos;
         static Brush m_brush;
@@ -162,6 +162,7 @@ namespace Lesson02
                     }
                     break;
                 case Utils.GameState.Lose:
+                    LeaderBoard.Add(Settings.NickName, ScoreCounter.Score);
                     m_gameState = Utils.GameState.EndGame;
                     break;
                 case Utils.GameState.EndGame:
@@ -171,6 +172,11 @@ namespace Lesson02
                     }
                     break;
             }
+        }
+
+        public static void Close()
+        {
+            LeaderBoard.Save();
         }
 
         static void Restart()
