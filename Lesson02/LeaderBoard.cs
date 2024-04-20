@@ -8,7 +8,6 @@ namespace Lesson02
 {
     class Data
     {
-        public int Id { get; set; }
         public string NickName { get; set; }
         public int Score { get; set; }
     }
@@ -48,11 +47,24 @@ namespace Lesson02
                 while ((line = sr.ReadLine()) != null)
                 {
                     string[] columns = line.Split(',');
-                    Data data = new Data { Id = Convert.ToInt32(columns[0]), NickName = columns[1], Score = Convert.ToInt32(columns[2]) };
+                    Data data = new Data { NickName = columns[1], Score = Convert.ToInt32(columns[2]) };
                     m_data.Add(data);
                 }
             }
 
+        }
+
+        public static void AddScore(string nickname, int score)
+        {
+            Data newData = new Data { NickName = nickname, Score = score };
+            for(int i = 0; i < m_data.Count; i++)
+            {
+                if (m_data[i].Score <= score)
+                {
+                    m_data.Insert(i, newData);
+                    break;
+                }
+            }
         }
 
         public static void Draw(Graphics g)
@@ -60,12 +72,23 @@ namespace Lesson02
             g.FillRectangle(m_brush, Settings.WindowSize.Width * 0.2f, Settings.WindowSize.Height * 0.1f, m_size.Width, m_size.Height);
             g.DrawString("Leader Board", new Font(FontFamily.GenericSerif, 20), new SolidBrush(Color.Red), new PointF(Settings.WindowSize.Width * 0.22f, Settings.WindowSize.Height * 0.15f));
             PointF curPoint = new PointF(Settings.WindowSize.Width * 0.25f, Settings.WindowSize.Height * 0.25f);
-            foreach (Data data in m_data)
+            for (int i = 0; i < m_data.Count; ++i)
             {
 
-                string line = $"{data.Id}. {data.NickName} - {data.Score}";
+                string line = $"{i}. {m_data[i].NickName} - {m_data[i].Score}";
                 g.DrawString(line, m_font, m_brushText, curPoint);
                 curPoint.Y += 30;
+            }
+        }
+
+        public static void Save()
+        {
+            using (StreamWriter sw = new StreamWriter(m_path))
+            {
+                for(int i = 0; i < m_data.Count; i++)
+                {
+                    sw.WriteLine($"{i + 1},{m_data[i].NickName},{m_data[i].Score}");
+                }
             }
         }
     }

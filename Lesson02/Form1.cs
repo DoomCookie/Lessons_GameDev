@@ -17,10 +17,10 @@ namespace Lesson02
         {
             InitializeComponent();
             Settings.InitSettings(new SizeF(Width - 17, Height - 34), m_timer.Interval);
-            Game.Start();
             
-            m_timer.Start();
         }
+
+        
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -41,6 +41,25 @@ namespace Lesson02
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             Utils.SetKeyUp(e);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            InputDialog id = new InputDialog("Nickname", "Введите ваш Nickname");
+            if (id.ShowDialog() == DialogResult.Cancel)
+            {
+                Close();
+            };
+            Settings.NickName = id.Nickname;
+            id.Dispose();
+            Game.Start();
+
+            m_timer.Start();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Game.Close();
         }
     }
 }

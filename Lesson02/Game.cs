@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
+
 
 namespace Lesson02
 {
     internal class Game
     {
+        
         // Rectnagle 1
         static Player m_player;
-        static Utils.GameState m_gameState = Utils.GameState.IsGame;
+        static Utils.GameState m_gameState = Utils.GameState.Prepare;
         // Rectnagle 2
         static Enemy[] m_enemys;
         static List<Bullet> m_bullets;
@@ -18,6 +21,8 @@ namespace Lesson02
         static PointF m_titlePos;
         static Brush m_brush;
         static Font m_font;
+
+        static string m_nickName = null;
 
         private Game() { }
 
@@ -43,6 +48,8 @@ namespace Lesson02
                 }
                 Utils.SpawnEnemy(m_enemys, i);
             }
+            m_nickName = Settings.NickName;
+            m_gameState = Utils.GameState.IsGame;
         }
 
         public static void Draw(Graphics g)
@@ -142,6 +149,7 @@ namespace Lesson02
                     }
                     break;
                 case Utils.GameState.Lose:
+                    LeaderBoard.AddScore(m_nickName, ScoreCounter.Score);
                     m_gameState = Utils.GameState.EndGame;
                     break;
                 case Utils.GameState.EndGame:
@@ -160,12 +168,16 @@ namespace Lesson02
             m_bullets.Clear();
             ScoreCounter.Reset();
             m_player.Position = new PointF((Settings.WindowSize.Width / 2) - m_player.Size.Width / 2, Settings.WindowSize.Height - 150);
-            Random rnd = new Random();
             for (int i = 0; i < m_enemys.Length; ++i)
             {
                 Utils.SpawnEnemy(m_enemys, i);
             }
             m_gameState = Utils.GameState.IsGame;
+        }
+
+        public static void Close()
+        {
+            LeaderBoard.Save();
         }
     }
 }

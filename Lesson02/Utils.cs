@@ -9,6 +9,7 @@ namespace Lesson02
     {
         public static SizeF WindowSize { set; get; }
         public static float Interval { get; set; }
+        public static string NickName { get; set; }
 
         public static void InitSettings(SizeF size, float interval)
         {
@@ -21,6 +22,7 @@ namespace Lesson02
     {
         public enum GameState
         {
+            Prepare,
             IsGame,
             Win,
             Lose,
