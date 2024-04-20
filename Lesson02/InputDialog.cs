@@ -22,6 +22,19 @@ namespace Lesson02
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Approve();
+        }
+
+        private void tb_input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                Approve();
+            }
+        }
+
+        void Approve()
+        {
             Nickname = tb_input.Text;
             DialogResult = DialogResult.OK;
             Close();
