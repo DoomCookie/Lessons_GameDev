@@ -16,14 +16,6 @@ namespace Lesson02
 
     internal class LeaderBoard
     {
-
-        /* TODO:
-         *  Обновлять данные после проигрыша
-         *  обновлять данные в файле
-         *  
-         * 
-         * 
-         */
         static string m_path = "LeaderBoard.txt";
         static List<Data> m_data = new List<Data>();
 

@@ -10,17 +10,17 @@ namespace Lesson02
     internal class Bullet : Character
     {
         public Utils.Characters Owner { get; }
-        public Bullet(PointF position, SizeF size, float speed, Color color, Utils.Characters owner) : base(position, size, speed, color)
+        public Bullet(PointF position, SizeF size, float speed, Utils.Characters owner) : base(position, size, speed)
         {
             Owner = owner;
             m_sprite = new Bitmap("media/spritesheets/laser-bolts.png");
             m_frameSize = new SizeF(5, 5);
             m_frames = new Bitmap[2];
             m_frames[0] = m_sprite.Clone(
-                new RectangleF(6, 7, 5, 5),
+                new RectangleF(6, 7, m_frameSize.Width, m_frameSize.Height),
                 m_sprite.PixelFormat);
             m_frames[1] = m_sprite.Clone(
-                new RectangleF(20, 7, 5, 5),
+                new RectangleF(20, 7, m_frameSize.Width, m_frameSize.Height),
                 m_sprite.PixelFormat);
         }
 

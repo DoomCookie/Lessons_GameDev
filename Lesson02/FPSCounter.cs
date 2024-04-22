@@ -8,7 +8,7 @@ namespace Lesson02
 {
     internal class FPSCounter
     {
-        static Brush m_brush = new SolidBrush(Color.Green);
+        static Brush m_brush = new SolidBrush(Color.White);
         static Font m_font = new Font(FontFamily.GenericSerif, 15);
         static long m_lastFrameTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
         static long m_fps = 0;

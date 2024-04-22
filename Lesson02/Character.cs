@@ -9,7 +9,6 @@ namespace Lesson02
 {
     internal class Character
     {
-        protected Brush m_brush;
 
         protected Bitmap m_sprite;
         protected RectangleF m_frameRect;
@@ -29,12 +28,11 @@ namespace Lesson02
         }
         public SizeF Size { get { return m_size; } }
 
-        public Character(PointF position, SizeF size, float speed, Color color)
+        public Character(PointF position, SizeF size, float speed)
         {
             m_position = position;
             m_size = size;
             m_speed = speed * Settings.Interval;
-            m_brush = new SolidBrush(color);
         }
 
         public virtual void Draw(Graphics g)
