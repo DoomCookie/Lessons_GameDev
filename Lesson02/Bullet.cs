@@ -11,7 +11,7 @@ namespace Lesson02
     {
         public Utils.Characters CharacterOwner { get; }
 
-        public Bullet(PointF position, SizeF size, float speed, Color color, Utils.Characters characterOwner) : base(position, size, speed, color)
+        public Bullet(PointF position, SizeF size, float speed, Utils.Characters characterOwner) : base(position, size, speed)
         {
             CharacterOwner = characterOwner;
 

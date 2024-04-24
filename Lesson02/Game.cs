@@ -32,7 +32,7 @@ namespace Lesson02
             m_titlePos = new PointF((Settings.WindowSize.Width / 2) - 80, (Settings.WindowSize.Height / 4) - 0);
             m_brush = new SolidBrush(Color.Red);
             m_font = new Font(FontFamily.GenericSerif, 28);
-            m_player = new Player(new PointF(50, Settings.WindowSize.Height - 150), new SizeF(50, 75), 250, Color.Blue);
+            m_player = new Player(new PointF(50, Settings.WindowSize.Height - 150), new SizeF(50, 75), 250);
 
             m_bullets = new List<Bullet>();
             m_enemys = new Enemy[10];
@@ -40,11 +40,11 @@ namespace Lesson02
             {
                 if (Utils.rnd.NextDouble() <= 0.3)
                 {
-                    m_enemys[i] = new ShootEnemy(new PointF(0, 0), new SizeF(60, 40), 100, Color.Brown);
+                    m_enemys[i] = new ShootEnemy(new PointF(0, 0), new SizeF(60, 40), 100);
                 }
                 else
                 {
-                    m_enemys[i] = new Enemy(new PointF(0, 0), new SizeF(40, 40), 100, Color.Green);
+                    m_enemys[i] = new Enemy(new PointF(0, 0), new SizeF(40, 40), 100);
                 }
                 Utils.SpawnEnemy(m_enemys, i);
             }
@@ -76,6 +76,7 @@ namespace Lesson02
             FPSCounter.Draw(g);
             ScoreCounter.Draw(g);
             LifeCounter.Draw(g);
+            BulletCounter.Draw(g, m_player.CountShoot);
             if (m_gameState != Utils.GameState.IsGame)
             {
                 LeaderBoard.Draw(g);
@@ -120,6 +121,10 @@ namespace Lesson02
                             m_bullets.Add(bullet);
                         }
                     }
+                    if (Utils.KeysState["r"])
+                    {
+                        m_player.StartReload();
+                    }
                     List<Bullet> delete = new List<Bullet>();
 
                     for (int i = 0; i < m_bullets.Count; i++)
@@ -153,7 +158,7 @@ namespace Lesson02
                     m_gameState = Utils.GameState.EndGame;
                     break;
                 case Utils.GameState.EndGame:
-                    if (Utils.KeysState["Space"])
+                    if (Utils.KeysState["Enter"])
                     {
                         Restart();
                     }
@@ -167,6 +172,7 @@ namespace Lesson02
             LifeCounter.Reset();
             m_bullets.Clear();
             ScoreCounter.Reset();
+            m_player.EndReload();
             m_player.Position = new PointF((Settings.WindowSize.Width / 2) - m_player.Size.Width / 2, Settings.WindowSize.Height - 150);
             for (int i = 0; i < m_enemys.Length; ++i)
             {
