@@ -98,10 +98,10 @@ namespace Lesson02
                         m_enemys[i].Move();
                         if (m_enemys[i] is ShootEnemy shootEnemy)
                         {
-                            Bullet bullet = shootEnemy.Shoot();
+                            List<Bullet> bullet = shootEnemy.Shoot();
                             if (bullet != null)
                             {
-                                m_bullets.Add(bullet);
+                                m_bullets.InsertRange(0, bullet);
                             }
                         }
                         if (m_enemys[i].Position.Y > Settings.WindowSize.Height + 10)
@@ -120,10 +120,10 @@ namespace Lesson02
                     }
                     if (Utils.KeysState["Space"])
                     {
-                        Bullet bullet = m_player.Shoot();
+                        List<Bullet> bullet = m_player.Shoot();
                         if (bullet != null)
                         {
-                            m_bullets.Add(bullet);
+                            m_bullets.InsertRange(0, bullet);
                         }
                     }
                     if (Utils.KeysState["r"])
@@ -144,7 +144,10 @@ namespace Lesson02
                             if (Utils.IsCollide(m_bullets[i], m_enemys[j]) && m_bullets[i].Owner == Utils.Characters.Player && !delete.Contains(m_bullets[i]))
                             {
                                 ScoreCounter.Hit(m_enemys[j].Bounty);
-                                delete.Add(m_bullets[i]);
+                                if (m_bullets[i].TypeBullet == Utils.TypeBullet.Destroyable)
+                                {
+                                    delete.Add(m_bullets[i]);
+                                }
                                 Utils.SpawnEnemy(m_enemys, j);
                             }
                         }

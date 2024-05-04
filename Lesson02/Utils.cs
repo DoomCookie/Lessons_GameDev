@@ -36,6 +36,13 @@ namespace Lesson02
             Enemy,
             Player
         }
+
+        public enum TypeBullet
+        {
+            Destroyable,
+            Undestroyable
+        }
+
         public static Random rnd = new Random();
         public static Dictionary<string, bool> KeysState { set; get; } = new Dictionary<string, bool>()
         {
