@@ -34,6 +34,8 @@ namespace Lesson02
             m_font = new Font(FontFamily.GenericSerif, 28);
             m_player = new Player(new PointF(50, Settings.WindowSize.Height - 150), new SizeF(50, 75), 250);
 
+            
+
             m_bullets = new List<Bullet>();
             m_enemys = new Enemy[10];
             for (int i = 0; i < m_enemys.Length; ++i)
@@ -115,10 +117,10 @@ namespace Lesson02
                     }
                     if (Utils.KeysState["Space"])
                     {
-                        Bullet bullet = m_player.Shoot();
-                        if (bullet != null)
+                        List<Bullet> bullets = m_player.Shoot();
+                        if (bullets != null)
                         {
-                            m_bullets.Add(bullet);
+                            m_bullets.InsertRange(0, bullets);
                         }
                     }
                     if (Utils.KeysState["r"])
