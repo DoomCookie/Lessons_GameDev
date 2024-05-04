@@ -19,8 +19,12 @@ namespace Lesson02
         protected long m_coolDown;
         protected int m_magazine;
 
-        public BaseGun()
+        protected int m_direction;
+
+        public BaseGun(int direction)
         {
+            m_direction = direction;
+
             m_countShoot = 0;
             m_isCoolDown = false;
             m_timerShoot = DateTimeOffset.Now.ToUnixTimeMilliseconds();

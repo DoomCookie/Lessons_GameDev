@@ -36,6 +36,13 @@ namespace Lesson02
             Enemy
         }
 
+        public enum Guns
+        {
+            Destroyable,
+            Undestroyable
+        }
+
+
 
         public static Random rnd = new Random();
 

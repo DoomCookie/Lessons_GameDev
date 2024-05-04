@@ -95,10 +95,10 @@ namespace Lesson02
                         m_enemys[i].Move();
                         if (m_enemys[i] is ShootEnemy shootEnemy)
                         {
-                            Bullet bullet = shootEnemy.Shoot();
-                            if (bullet != null)
+                            List<Bullet> bullets = shootEnemy.Shoot();
+                            if (bullets != null)
                             {
-                                m_bullets.Add(bullet);
+                                m_bullets.InsertRange(0, bullets);
                             }
                         }
                         if (m_enemys[i].Position.Y > Settings.WindowSize.Height + 10)
@@ -137,7 +137,10 @@ namespace Lesson02
                             if (Utils.IsCollide(m_bullets[i], m_enemys[j]) && m_bullets[i].CharacterOwner == Utils.Characters.Player)
                             {
                                 ScoreCounter.Hit(m_enemys[j].Bounty);
-                                delete.Add(m_bullets[i]);
+                                if (m_bullets[i].TypeGun == Utils.Guns.Destroyable)
+                                {
+                                    delete.Add(m_bullets[i]);
+                                }
                                 Utils.SpawnEnemy(m_enemys, j);
                             }
                         }

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Background.cs" />
     <Compile Include="BaseGun.cs" />
+    <Compile Include="BigGun.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="BulletCounter.cs" />
     <Compile Include="Character.cs" />

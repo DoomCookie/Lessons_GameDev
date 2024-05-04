@@ -6,13 +6,13 @@ using System.Drawing;
 
 namespace Lesson02
 {
-    internal class SimpleGun : BaseGun
+    internal class BigGun : BaseGun
     {
-        public SimpleGun(int direction) : base(direction)
+        public BigGun(int direction) : base(direction)
         {
-            m_magazine = 5;
-            m_coolDown = 1500;
-            m_shootDelay = 1000 / 5f;
+            m_magazine = 3;
+            m_coolDown = 2000;
+            m_shootDelay = 1000 / 2f;
         }
 
         public override List<Bullet> Shoot(PointF position, Utils.Characters character)
@@ -27,7 +27,7 @@ namespace Lesson02
                     StartReload();
                 }
                 m_timerShoot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                return new List<Bullet> { new Bullet(new PointF(position.X - 5, position.Y), new SizeF(10, 10), m_direction * 500, character, Utils.Guns.Destroyable) };
+                return new List<Bullet> { new Bullet(new PointF(position.X - 15, position.Y), new SizeF(30, 30), m_direction * 150, character, Utils.Guns.Undestroyable) };
 
             }
             return null;

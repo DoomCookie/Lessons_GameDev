@@ -17,7 +17,7 @@ namespace Lesson02
 
         public Player(PointF position, SizeF size, float speed) : base(position, size, speed)
         {
-            gun = new TripleGun();
+            gun = new BigGun(1);
 
             m_sprite = new Bitmap("media/spritesheets/ship.png");
             m_frameSize = new SizeF(16, 24);
@@ -64,7 +64,7 @@ namespace Lesson02
 
         public List<Bullet> Shoot()
         {
-            return gun.Shoot(new PointF(Position.X + Size.Width / 2 - 5, Position.Y - 15), Utils.Characters.Player);
+            return gun.Shoot(new PointF(Position.X + Size.Width / 2, Position.Y - 15), Utils.Characters.Player);
         }
     }
 }

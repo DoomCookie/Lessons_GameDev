@@ -9,14 +9,12 @@ namespace Lesson02
 {
     internal class ShootEnemy : Enemy
     {
-        float m_coolDown;
-        long m_timerShot;
+        BaseGun gun;
         public override int Bounty { get; } = 200;
 
         public ShootEnemy(PointF position, SizeF size, float speed) : base(position, size, speed)
         {
-            m_coolDown = Utils.rnd.Next(2000, 3000);
-            m_timerShot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            gun = new SimpleGun(-1);
 
             m_sprite = new Bitmap("media/spritesheets/enemy-medium.png");
             m_frameSize = new SizeF(32, 16);
@@ -27,16 +25,15 @@ namespace Lesson02
             m_frames[1] = m_sprite.Clone(rect, m_sprite.PixelFormat);
         }
 
-        public Bullet Shoot()
+        public override void Move()
         {
-            long now = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            base.Move();
+            gun.Update();
+        }
 
-            if (now - m_timerShot >= m_coolDown)
-            {
-                m_timerShot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                return new Bullet(new PointF(Position.X + Size.Width / 2 - 5, Position.Y + m_size.Height + 15), new SizeF(10, 10), -200, Utils.Characters.Enemy);
-            }
-            return null;
+        public List<Bullet> Shoot()
+        {
+            return gun.Shoot(new PointF(Position.X + Size.Width / 2, Position.Y + m_size.Height + 15), Utils.Characters.Enemy);
         }
     }
 }

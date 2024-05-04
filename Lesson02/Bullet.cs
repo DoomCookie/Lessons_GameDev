@@ -10,10 +10,12 @@ namespace Lesson02
     internal class Bullet : Character
     {
         public Utils.Characters CharacterOwner { get; }
+        public Utils.Guns TypeGun { get; }
 
-        public Bullet(PointF position, SizeF size, float speed, Utils.Characters characterOwner) : base(position, size, speed)
+        public Bullet(PointF position, SizeF size, float speed, Utils.Characters characterOwner, Utils.Guns typeGun) : base(position, size, speed)
         {
             CharacterOwner = characterOwner;
+            TypeGun = typeGun;
 
             m_sprite = new Bitmap("media/spritesheets/laser-bolts.png");
             m_frameSize = new SizeF(5, 5);
