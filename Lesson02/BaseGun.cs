@@ -18,10 +18,39 @@ namespace Lesson02
         protected long m_timerShoot;
         protected long m_coolDown;
         protected int m_magazine;
+        protected float m_coolDownCoef;
+        protected float m_ShootDelayCoef;
 
-        protected int m_direction;
+        protected float m_direction;
+        protected float m_speed;
 
-        public BaseGun(int direction)
+        protected SizeF m_bulletSize;
+
+        public virtual float CoolDownCoef
+        { 
+            get
+            { 
+                return m_coolDownCoef;
+            }
+            set
+            {
+                m_coolDownCoef = value;
+            } 
+        }
+
+        public virtual float ShootDelayCoef
+        {
+            get
+            {
+                return m_ShootDelayCoef;
+            }
+            set
+            {
+                m_ShootDelayCoef = value;
+            }
+        }
+
+        public BaseGun(float direction)
         {
             m_direction = direction;
 
@@ -29,6 +58,9 @@ namespace Lesson02
             m_isCoolDown = false;
             m_timerShoot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             m_startReload = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            CoolDownCoef = 1;
+            ShootDelayCoef = 1;
+
         }
 
         public virtual void StartReload()
@@ -40,7 +72,7 @@ namespace Lesson02
         public virtual void Update()
         {
             long now = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            if (now - m_startReload >= m_coolDown && m_isCoolDown)
+            if (now - m_startReload >= m_coolDown * m_coolDownCoef && m_isCoolDown)
             {
                 EndReload();
             }
@@ -50,6 +82,23 @@ namespace Lesson02
         {
             m_countShoot = 0;
             m_isCoolDown = false;
+        }
+
+        protected List<Bullet> Shoot(PointF position, Utils.Characters character, Utils.Guns gun)
+        {
+            long now = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            if (now - m_timerShoot >= m_shootDelay * ShootDelayCoef && !m_isCoolDown)
+            {
+                m_countShoot++;
+                if (m_countShoot == m_magazine)
+                {
+                    StartReload();
+                }
+                m_timerShoot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                return new List<Bullet> { new Bullet(position, m_bulletSize, m_direction * m_speed, character, gun) };
+
+            }
+            return null;
         }
 
         public virtual List<Bullet> Shoot(PointF position, Utils.Characters character)

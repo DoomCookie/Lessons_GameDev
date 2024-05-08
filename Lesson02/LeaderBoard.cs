@@ -83,7 +83,7 @@ namespace Lesson02
             g.DrawString("Leader Board", new Font(FontFamily.GenericSerif, 20), m_redBrush, new PointF(Settings.WindowSize.Width * 0.22f, Settings.WindowSize.Height * 0.15f));
             PointF curPoint = new PointF(Settings.WindowSize.Width * 0.25f, Settings.WindowSize.Height * 0.25f);
             bool isDraw = false;
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 10 && i < m_data.Count; ++i)
             {
                 if(i == 8 && !isDraw)
                 {

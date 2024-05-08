@@ -54,7 +54,10 @@ namespace Lesson02
             {"Right", false },
             {"Space", false },
             {"Enter", false },
-            {"r", false }
+            {"r", false },
+            {"1", false },
+            {"2", false },
+            {"3", false }
         };
 
         public static void SetKeyDown(KeyEventArgs e)
@@ -87,6 +90,18 @@ namespace Lesson02
             {
                 KeysState["r"] = true;
             }
+            if (e.KeyCode == Keys.D1)
+            {
+                KeysState["1"] = true;
+            }
+            if (e.KeyCode == Keys.D2)
+            {
+                KeysState["2"] = true;
+            }
+            if (e.KeyCode == Keys.D3)
+            {
+                KeysState["3"] = true;
+            }
         }
 
         public static void SetKeyUp(KeyEventArgs e)
@@ -118,6 +133,18 @@ namespace Lesson02
             if (e.KeyCode == Keys.R)
             {
                 KeysState["r"] = false;
+            }
+            if (e.KeyCode == Keys.D1)
+            {
+                KeysState["1"] = false;
+            }
+            if (e.KeyCode == Keys.D2)
+            {
+                KeysState["2"] = false;
+            }
+            if (e.KeyCode == Keys.D3)
+            {
+                KeysState["3"] = false;
             }
         }
 

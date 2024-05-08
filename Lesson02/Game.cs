@@ -127,6 +127,18 @@ namespace Lesson02
                     {
                         m_player.StartReload();
                     }
+                    if (Utils.KeysState["1"])
+                    {
+                        m_player.Gun = new SimpleGun(1);
+                    }
+                    if (Utils.KeysState["2"])
+                    {
+                        m_player.Gun = new BigGun(1);
+                    }
+                    if (Utils.KeysState["3"])
+                    {
+                        m_player.Gun = new TripleGun(1);
+                    }
                     List<Bullet> delete = new List<Bullet>();
 
                     for (int i = 0; i < m_bullets.Count; i++)

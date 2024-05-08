@@ -8,29 +8,19 @@ namespace Lesson02
 {
     internal class SimpleGun : BaseGun
     {
-        public SimpleGun(int direction) : base(direction)
+        public SimpleGun(float direction) : base(direction)
         {
             m_magazine = 5;
             m_coolDown = 1500;
             m_shootDelay = 1000 / 5f;
+            m_speed = 500;
+            m_bulletSize = new SizeF(10, 10);
         }
 
         public override List<Bullet> Shoot(PointF position, Utils.Characters character)
         {
-            long now = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-
-            if (now - m_timerShoot >= m_shootDelay && !m_isCoolDown)
-            {
-                m_countShoot++;
-                if (m_countShoot == m_magazine)
-                {
-                    StartReload();
-                }
-                m_timerShoot = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                return new List<Bullet> { new Bullet(new PointF(position.X - 5, position.Y), new SizeF(10, 10), m_direction * 500, character, Utils.Guns.Destroyable) };
-
-            }
-            return null;
+            PointF point = new PointF(position.X - m_bulletSize.Width / 2, position.Y);
+            return base.Shoot(point, character, Utils.Guns.Destroyable);
         }
     }
 }

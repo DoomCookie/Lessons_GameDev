@@ -11,13 +11,19 @@ namespace Lesson02
     internal class Player : Character
     {
 
-        BaseGun gun;
+        BaseGun m_gun;
 
-        public int CountShoot { get { return gun.CountShoot; } }
+        public BaseGun Gun
+        {
+            get { return m_gun; }
+            set { m_gun = value; }
+        }
+
+        public int CountShoot { get { return m_gun.CountShoot; } }
 
         public Player(PointF position, SizeF size, float speed) : base(position, size, speed)
         {
-            gun = new BigGun(1);
+            m_gun = new TripleGun(1);
 
             m_sprite = new Bitmap("media/spritesheets/ship.png");
             m_frameSize = new SizeF(16, 24);
@@ -49,22 +55,22 @@ namespace Lesson02
                 m_position.Y -= m_speed;
             }
 
-            gun.Update();
+            m_gun.Update();
         }
 
         public void StartReload()
         {
-            gun.StartReload();
+            m_gun.StartReload();
         }
 
         public void EndReload()
         {
-            gun.EndReload();
+            m_gun.EndReload();
         }
 
         public List<Bullet> Shoot()
         {
-            return gun.Shoot(new PointF(Position.X + Size.Width / 2, Position.Y - 15), Utils.Characters.Player);
+            return m_gun.Shoot(new PointF(Position.X + Size.Width / 2, Position.Y - 15), Utils.Characters.Player);
         }
     }
 }
