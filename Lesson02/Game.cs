@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Media;
 
 
 namespace Lesson02
 {
     internal class Game
     {
-        
+        static SoundPlayer m_soundPlayer = new SoundPlayer("media/sound/id.wav");
         // Rectnagle 1
         static Player m_player;
         static Utils.GameState m_gameState = Utils.GameState.Prepare;
@@ -18,9 +19,7 @@ namespace Lesson02
         static Enemy[] m_enemys;
         static List<Bullet> m_bullets;
 
-        static PointF m_titlePos;
-        static Brush m_brush;
-        static Font m_font;
+        static int m_lastScore = 0;
 
         static string m_nickName = null;
 
@@ -29,9 +28,8 @@ namespace Lesson02
         public static void Start()
         {
             LeaderBoard.Start();
-            m_titlePos = new PointF((Settings.WindowSize.Width / 2) - 80, (Settings.WindowSize.Height / 4) - 0);
-            m_brush = new SolidBrush(Color.Red);
-            m_font = new Font(FontFamily.GenericSerif, 28);
+            m_soundPlayer.Load();
+            m_soundPlayer.PlayLooping();
             m_player = new Player(new PointF(50, Settings.WindowSize.Height - 150), new SizeF(50, 75), 250);
 
             
@@ -169,6 +167,11 @@ namespace Lesson02
                     {
                         m_gameState = Utils.GameState.Lose;
                     }
+                    if(ScoreCounter.Score - m_lastScore >= Settings.ScoreThreshold)
+                    {
+                        LifeCounter.LifeUp();
+                        m_lastScore = ScoreCounter.Score;
+                    }
                     break;
                 case Utils.GameState.Lose:
                     LeaderBoard.AddScore(m_nickName, ScoreCounter.Score);
@@ -186,6 +189,7 @@ namespace Lesson02
 
         static void Restart()
         {
+            m_lastScore = 0;
             LifeCounter.Reset();
             m_bullets.Clear();
             ScoreCounter.Reset();

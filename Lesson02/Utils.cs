@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System;
 
+
 namespace Lesson02
 {
     class Settings
@@ -10,6 +11,8 @@ namespace Lesson02
         public static SizeF WindowSize { set; get; }
         public static float Interval { get; set; }
         public static string NickName { get; set; }
+
+        public static int ScoreThreshold = 5000;
 
         public static void InitSettings(SizeF size, float interval)
         {

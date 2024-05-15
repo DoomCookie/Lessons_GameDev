@@ -10,12 +10,13 @@ namespace Lesson02
     {
         private Background() { }
 
-        static Bitmap m_sprite = new Bitmap("media/River/PNG/background.png");
+        static Bitmap m_sprite = Properties.Resources.background;
         static SizeF m_size = Settings.WindowSize;
 
 
         static public void Draw(Graphics g)
         {
+            
             g.DrawImage(m_sprite, 0, 0, m_size.Width, m_size.Height);
         }
     }

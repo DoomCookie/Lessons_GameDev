@@ -19,6 +19,14 @@ namespace Lesson02
             m_life--;
         }
 
+        public static void LifeUp()
+        {
+            if (m_life < 5)
+            {
+                m_life++;
+            }
+        }
+
         public static bool IsAlive()
         {
             return m_life > 0;
