@@ -16,7 +16,7 @@ namespace Lesson02
           звуки(фоновая музыка)
         
         */
-        static SoundPlayer m_backgroundPlayer = new SoundPlayer();
+        static SoundPlayer m_backgroundPlayer = new SoundPlayer("media/sound/id.wav");
 
         static Player m_player;
         static Enemy[] m_enemys;
@@ -30,13 +30,13 @@ namespace Lesson02
 
         Game()
         {
-            
+            m_backgroundPlayer.Load();
         }
 
         public static void Init()
         {
             m_gameState = Utils.GameState.IsGame;
-
+            m_backgroundPlayer.PlayLooping();
             m_titlePos = new PointF((Settings.WindowSize.Width / 2) - 80, (Settings.WindowSize.Height / 4) - 0);
             m_brush = new SolidBrush(Color.Red);
             m_font = new Font(FontFamily.GenericSerif, 28);
@@ -162,6 +162,7 @@ namespace Lesson02
                                 {
                                     delete.Add(m_bullets[i]);
                                 }
+                                
                                 Utils.SpawnEnemy(m_enemys, j);
                             }
                         }

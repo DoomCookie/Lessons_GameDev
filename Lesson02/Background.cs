@@ -8,7 +8,7 @@ namespace Lesson02
 {
     internal class Background
     {
-        static Bitmap m_sprite = new Bitmap("media/River/PNG/background.png");
+        static Bitmap m_sprite = Properties.Resources.background;
         static SizeF m_size = Settings.WindowSize;
 
         public static void Draw(Graphics g)
