@@ -16,9 +16,6 @@ namespace Lesson02
         {
             InitializeComponent();
             Settings.InitSettings(new SizeF(Width - 16, Height - 34), m_timer.Interval);
-
-            
-            
             
         }
 
@@ -46,6 +43,7 @@ namespace Lesson02
         private void Form1_Load(object sender, EventArgs e)
         {
             InputDialog id = new InputDialog("Nickname", "Введите ваш nickname");
+            LeaderBoard.Start();
             if (id.ShowDialog() == DialogResult.Cancel)
             {
                 Close();

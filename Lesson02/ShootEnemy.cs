@@ -13,6 +13,8 @@ namespace Lesson02
         public ShootEnemy(PointF position, SizeF size, float speed) : base(position, size, speed)
         {
             m_gun = new SimpleGun(Utils.Characters.Enemy);
+            m_gun.CoolDownCoef = 0;
+            m_gun.ShootDelayCoef = Convert.ToSingle(Utils.rnd.NextDouble() * 5 + 10);
             Bounty = 200;
             m_sprite = new Bitmap("media/spritesheets/enemy-medium.png");
             m_frameRect = new RectangleF(0, 0, 32, 16);

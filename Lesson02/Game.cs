@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Media;
 
 namespace Lesson02
 {
@@ -15,6 +16,8 @@ namespace Lesson02
           звуки(фоновая музыка)
         
         */
+        static SoundPlayer m_backgroundPlayer = new SoundPlayer();
+
         static Player m_player;
         static Enemy[] m_enemys;
         static List<Bullet> m_bullets;
@@ -33,8 +36,6 @@ namespace Lesson02
         public static void Init()
         {
             m_gameState = Utils.GameState.IsGame;
-
-            LeaderBoard.Start();
 
             m_titlePos = new PointF((Settings.WindowSize.Width / 2) - 80, (Settings.WindowSize.Height / 4) - 0);
             m_brush = new SolidBrush(Color.Red);
@@ -130,6 +131,19 @@ namespace Lesson02
                     {
                         m_player.StartReload();
                     }
+                    if (Utils.KeysState["1"])
+                    {
+                        m_player.Gun = new SimpleGun(Utils.Characters.Player);
+                    }
+                    if (Utils.KeysState["2"])
+                    {
+                        m_player.Gun = new BigGun(Utils.Characters.Player);
+                    }
+                    if (Utils.KeysState["3"])
+                    {
+                        m_player.Gun = new TripleGun(Utils.Characters.Player);
+                    }
+
                     List<Bullet> delete = new List<Bullet>();
 
                     for (int i = 0; i < m_bullets.Count; i++)

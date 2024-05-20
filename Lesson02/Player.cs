@@ -11,7 +11,12 @@ namespace Lesson02
     internal class Player : Character
     {
 
-        public BaseGun m_gun;
+        BaseGun m_gun;
+        public BaseGun Gun
+        {
+            get { return m_gun; }
+            set { m_gun = value; }
+        }
         public int CountShoot { get { return m_gun.CountShoot; } }
 
 
@@ -62,7 +67,7 @@ namespace Lesson02
 
         public List<Bullet> Shoot()
         {
-            return m_gun.Shoot(new PointF(Position.X + Size.Width / 2, Position.Y));
+            return m_gun.Shoot(new PointF(Position.X + Size.Width / 2, Position.Y - 15));
         }
     }
 }
